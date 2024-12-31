@@ -56,6 +56,7 @@
             color: #555;
         }
 
+        /* Kutlama Mesajı */
         #celebrationMessage {
             display: none;
             position: fixed;
@@ -69,6 +70,7 @@
             z-index: 1000;
         }
 
+        /* Animasyonlu Mesaj */
         #authorMessage {
             position: fixed;
             top: 10px;
@@ -92,9 +94,79 @@
         <div id="noelBaba"></div>
     </div>
 
+    <!-- Kutlama Mesajı -->
     <div id="celebrationMessage">🎉 Mutlu Yıllar! 🎉<br>Yeni yılınız mutluluk ve başarı getirsin!</div>
+
+    <!-- Animasyonlu Mesaj -->
     <div id="authorMessage">Yapımcı: <strong>Ali Aykan Avşar</strong></div>
 
-    <script src="js/game.js"></script>
+    <script>
+        const noelBaba = document.getElementById("noelBaba");
+        const gameArea = document.getElementById("gameArea");
+        const celebrationMessage = document.getElementById("celebrationMessage");
+        let score = 0;
+        let jumping = false;
+        let carSpeed = 5;
+
+        // Zıplama Hareketi
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "Space" && !jumping) {
+                jumping = true;
+                let jumpHeight = 20;
+                let jumpCount = 0;
+
+                const jumpInterval = setInterval(() => {
+                    const bottom = parseInt(window.getComputedStyle(noelBaba).getPropertyValue("bottom"));
+
+                    if (jumpCount < jumpHeight) {
+                        noelBaba.style.bottom = bottom + 5 + "px";
+                    } else if (jumpCount < jumpHeight * 2) {
+                        noelBaba.style.bottom = bottom - 5 + "px";
+                    } else {
+                        clearInterval(jumpInterval);
+                        jumping = false;
+                    }
+                    jumpCount++;
+                }, 20);
+            }
+        });
+
+        // Araba Oluşturma
+        function createCar() {
+            const car = document.createElement("div");
+            car.classList.add("car");
+            car.style.left = "800px";
+            gameArea.appendChild(car);
+
+            const carInterval = setInterval(() => {
+                const carLeft = parseInt(window.getComputedStyle(car).getPropertyValue("left"));
+                const noelBabaBottom = parseInt(window.getComputedStyle(noelBaba).getPropertyValue("bottom"));
+
+                if (carLeft > 0) {
+                    car.style.left = carLeft - carSpeed + "px";
+                } else {
+                    car.remove();
+                    clearInterval(carInterval);
+                    score++;
+                    document.getElementById("score").innerText = `Puan: ${score}`;
+                    if (score % 5 === 0) {
+                        carSpeed += 1;
+                    }
+                }
+
+                if (carLeft < 150 && carLeft > 50 && noelBabaBottom < 90) {
+                    endGame();
+                }
+            }, 20);
+        }
+
+        // Oyun Bitişi
+        function endGame() {
+            celebrationMessage.style.display = "block";
+        }
+
+        // Arabaları Başlat
+        setInterval(createCar, Math.random() * 2000 + 1000);
+    </script>
 </body>
 </html>
