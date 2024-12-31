@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noel Baba Atlama Oyunu</title>
+    <link rel="stylesheet" href="css/site.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        #gameArea {
+            position: relative;
+            width: 800px;
+            height: 400px;
+            margin: 20px auto;
+            background-color: #e0ffff;
+            border: 2px solid #000;
+            overflow: hidden;
+        }
+
+        #noelBaba {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            bottom: 50px;
+            left: 100px;
+            background: url('images/noelbaba.png') no-repeat center;
+            background-size: cover;
+        }
+
+        .car {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            bottom: 50px;
+            background: url('images/car.png') no-repeat center;
+            background-size: cover;
+        }
+
+        #score {
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #228b22;
+        }
+
+        #instructions {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        #celebrationMessage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff4500;
+            text-shadow: 2px 2px 4px #000;
+            z-index: 1000;
+        }
+
+        #authorMessage {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+            color: #ff4500;
+            animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Noel Baba Atlama Oyunu</h1>
+    <div id="instructions">Boşluk tuşuyla zıpla ve arabaların üzerinden geç!</div>
+    <div id="score">Puan: 0</div>
+    <div id="gameArea">
+        <div id="noelBaba"></div>
+    </div>
+
+    <div id="celebrationMessage">🎉 Mutlu Yıllar! 🎉<br>Yeni yılınız mutluluk ve başarı getirsin!</div>
+    <div id="authorMessage">Yapımcı: <strong>Ali Aykan Avşar</strong></div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
